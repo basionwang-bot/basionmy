@@ -9,6 +9,7 @@
 - [IDEAS（想法库）](./IDEAS.md)
 - [PROJECTS（项目总览）](./PROJECTS.md)
 - [QUICK-CAPTURE（快速记录）](./QUICK-CAPTURE.md)
+- [AI 商业版图（网页可视化）](./ai-business-landscape.html)
 
 ## 使用习惯（可以按自己喜好改）
 

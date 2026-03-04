@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 商业版图：OpenAI / Anthropic / NVIDIA</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --panel: #131b36;
+        --panel-2: #1a2448;
+        --line: #2a3766;
+        --text: #e9eeff;
+        --muted: #acb6de;
+        --openai: #53f2c6;
+        --anthropic: #8eb8ff;
+        --nvidia: #9eea4d;
+        --warn: #ffd166;
+        --danger: #ff7b7b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        font-family: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        background: radial-gradient(circle at 10% 0%, #1d2752 0%, #0b1020 40%, #090d1a 100%);
+        color: var(--text);
+        scroll-behavior: smooth;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .container {
+        width: min(1120px, 92vw);
+        margin: 0 auto;
+      }
+
+      .hero {
+        padding: 64px 0 36px;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 48px);
+        line-height: 1.1;
+        letter-spacing: 0.4px;
+      }
+
+      .hero p {
+        margin: 14px 0 0;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 860px;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .tag {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.03);
+        color: #cfdbff;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 13px;
+      }
+
+      .top-nav {
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(8px);
+        background: rgba(7, 10, 21, 0.75);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 20;
+      }
+
+      .top-nav .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #c7d4ff;
+        font-size: 14px;
+        padding: 8px 10px;
+        border-radius: 8px;
+      }
+
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 8px;
+      }
+
+      .toggle-btn {
+        border: 1px solid var(--line);
+        background: #172145;
+        color: #dbe5ff;
+        border-radius: 9px;
+        font-size: 13px;
+        padding: 7px 11px;
+        cursor: pointer;
+      }
+
+      .toggle-btn.active {
+        border-color: #7fa8ff;
+        background: #263a77;
+        color: #f2f6ff;
+      }
+
+      section {
+        padding: 46px 0 10px;
+      }
+
+      section h2 {
+        margin: 0 0 8px;
+        font-size: clamp(22px, 2.5vw, 30px);
+      }
+
+      section > p {
+        margin-top: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        background: linear-gradient(165deg, var(--panel) 0%, var(--panel-2) 100%);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 20px;
+      }
+
+      .card p {
+        margin: 0;
+        color: #bfd0ff;
+        line-height: 1.65;
+      }
+
+      .kpi {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .kpi-item {
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        padding: 10px;
+        background: rgba(7, 11, 24, 0.45);
+      }
+
+      .kpi-item .label {
+        color: #a8b4dc;
+        font-size: 12px;
+      }
+
+      .kpi-item .value {
+        margin-top: 6px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .matrix {
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .matrix-row {
+        display: grid;
+        grid-template-columns: 180px 1fr 1fr;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(141, 160, 221, 0.18);
+        background: rgba(13, 19, 39, 0.65);
+      }
+
+      .matrix-row:last-child {
+        border-bottom: 0;
+      }
+
+      .matrix-row.header {
+        background: rgba(26, 40, 84, 0.8);
+        font-weight: 600;
+      }
+
+      .dim-name {
+        font-size: 14px;
+        color: #d9e2ff;
+      }
+
+      .bar-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .bar {
+        height: 8px;
+        flex: 1;
+        background: #2a3766;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .bar > span {
+        display: block;
+        height: 100%;
+        width: 0;
+        transition: width 0.8s ease;
+      }
+
+      .bar.openai > span {
+        background: var(--openai);
+      }
+
+      .bar.anthropic > span {
+        background: var(--anthropic);
+      }
+
+      .score {
+        font-size: 12px;
+        color: #c8d7ff;
+        width: 32px;
+        text-align: right;
+      }
+
+      .moat-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .moat-item {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        background: rgba(16, 24, 52, 0.65);
+      }
+
+      .moat-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .moat-title {
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .moat-meter {
+        width: 140px;
+      }
+
+      .moat-meter .bar > span {
+        background: linear-gradient(90deg, #63d45e, #d9ff73);
+      }
+
+      .moat-detail {
+        margin-top: 8px;
+        color: #b9c7ee;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .rival-tag {
+        display: inline-flex;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        margin-left: 8px;
+      }
+
+      .risk-high {
+        background: rgba(255, 123, 123, 0.18);
+        color: #ffc5c5;
+      }
+
+      .risk-mid {
+        background: rgba(255, 209, 102, 0.2);
+        color: #ffe9b3;
+      }
+
+      .risk-low {
+        background: rgba(132, 229, 170, 0.2);
+        color: #cbffe3;
+      }
+
+      .rev-block {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        background: rgba(15, 21, 42, 0.75);
+      }
+
+      .rev-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+
+      .rev-title h4 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .rev-title span {
+        color: #afbee7;
+        font-size: 12px;
+      }
+
+      .stack {
+        margin-top: 10px;
+        height: 18px;
+        border-radius: 999px;
+        overflow: hidden;
+        display: flex;
+      }
+
+      .stack > div {
+        width: 0;
+        transition: width 1s ease;
+      }
+
+      .legend {
+        margin-top: 10px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #c8d6fd;
+        font-size: 14px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+        display: inline-block;
+      }
+
+      .legend-label {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .insight {
+        margin-top: 18px;
+        background: linear-gradient(135deg, rgba(42, 64, 132, 0.6), rgba(20, 33, 73, 0.6));
+        border: 1px solid #3f5fb1;
+        border-radius: 12px;
+        padding: 14px;
+        color: #deebff;
+        line-height: 1.75;
+      }
+
+      .foot {
+        padding: 30px 0 40px;
+        color: #a2b1da;
+        font-size: 13px;
+      }
+
+      .fade-up {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.45s ease, transform 0.45s ease;
+      }
+
+      .fade-up.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 900px) {
+        .grid.two,
+        .grid.three {
+          grid-template-columns: 1fr;
+        }
+
+        .matrix-row {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+
+        .matrix-row.header {
+          display: none;
+        }
+
+        .top-nav .container {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero container fade-up">
+      <h1>AI 商业版图速览</h1>
+      <p>
+        这张图把三件事放在同一页：<strong>OpenAI vs Anthropic 商业模式差异</strong>、<strong>NVIDIA 护城河与潜在挑战</strong>、以及
+        <strong>三家公司主要收入来源</strong>。数值为战略认知示意，便于理解结构，不代表官方披露。
+      </p>
+      <div class="tag-row">
+        <span class="tag">商业模式</span>
+        <span class="tag">竞争格局</span>
+        <span class="tag">收入结构</span>
+        <span class="tag">投资/战略双视角</span>
+      </div>
+    </header>
+
+    <nav class="top-nav">
+      <div class="container">
+        <div class="nav-links">
+          <a href="#model">商业模式对比</a>
+          <a href="#nvidia">NVIDIA 护城河</a>
+          <a href="#revenue">收入来源图谱</a>
+          <a href="#watch">未来观察指标</a>
+        </div>
+        <div class="btn-group">
+          <button class="toggle-btn active" data-view="strategy">战略视角</button>
+          <button class="toggle-btn" data-view="invest">投资视角</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <section id="model" class="fade-up">
+        <h2>1) OpenAI vs Anthropic：商业模式差异</h2>
+        <p>OpenAI 更像“C 端入口 + 平台化”的双轮驱动；Anthropic 更像“企业/API 优先”的高可信模型供应商。</p>
+
+        <div class="grid two">
+          <article class="card">
+            <h3 style="color: var(--openai)">OpenAI</h3>
+            <p>以 ChatGPT 形成强入口，再向 API 与企业套件延展，目标是“用户-开发者-企业”三层网络效应。</p>
+            <div class="kpi">
+              <div class="kpi-item">
+                <div class="label">GTM重心</div>
+                <div class="value">C + B</div>
+              </div>
+              <div class="kpi-item">
+                <div class="label">渠道</div>
+                <div class="value">自有产品强</div>
+              </div>
+              <div class="kpi-item">
+                <div class="label">核心飞轮</div>
+                <div class="value">入口+平台</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3 style="color: var(--anthropic)">Anthropic</h3>
+            <p>强调可控、安全与治理，更多通过 API 与企业渠道放量，定位“企业级可信 AI 模型供应商”。</p>
+            <div class="kpi">
+              <div class="kpi-item">
+                <div class="label">GTM重心</div>
+                <div class="value">B / API</div>
+              </div>
+              <div class="kpi-item">
+                <div class="label">渠道</div>
+                <div class="value">云与企业</div>
+              </div>
+              <div class="kpi-item">
+                <div class="label">核心飞轮</div>
+                <div class="value">可信+交付</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="matrix" id="model-matrix"></div>
+      </section>
+
+      <section id="nvidia" class="fade-up">
+        <h2>2) NVIDIA 护城河 &amp; 潜在竞争者</h2>
+        <p>护城河不是单点芯片参数，而是“软件生态 + 系统协同 + 供应能力 + 客户粘性”的系统性优势。</p>
+
+        <div class="grid two">
+          <article class="card">
+            <h3 style="color: var(--nvidia)">NVIDIA 护城河强度</h3>
+            <div class="moat-list" id="moat-list"></div>
+          </article>
+
+          <article class="card">
+            <h3>潜在竞争者地图</h3>
+            <div class="grid" style="margin-top: 6px">
+              <div class="moat-item">
+                <div class="moat-title">AMD（通用 GPU 路线）<span class="rival-tag risk-mid">中等压力</span></div>
+                <div class="moat-detail">芯片规格接近、性价比改善明显；关键变量在 ROCm 生态成熟度与迁移成本。</div>
+              </div>
+              <div class="moat-item">
+                <div class="moat-title">云厂商自研 ASIC（TPU/Trainium）<span class="rival-tag risk-high">高潜在压力</span></div>
+                <div class="moat-detail">在自家云内可形成闭环，若 TCO 和可用性持续改善，会分流部分训练/推理负载。</div>
+              </div>
+              <div class="moat-item">
+                <div class="moat-title">专用推理芯片（Groq/Cerebras 等）<span class="rival-tag risk-mid">场景压力</span></div>
+                <div class="moat-detail">在特定低延迟推理场景可能优势显著，但通用性与生态广度仍待验证。</div>
+              </div>
+              <div class="moat-item">
+                <div class="moat-title">本土替代阵营（区域市场）<span class="rival-tag risk-low">区域压力</span></div>
+                <div class="moat-detail">地缘与供应链因素会推动区域替代，长期看取决于软件栈与开发者生态建设速度。</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="revenue" class="fade-up">
+        <h2>3) AI 公司主要收入来源</h2>
+        <p>把“公司 -> 收入项”放在同一坐标系下，更容易看到谁更依赖订阅、谁更依赖 API 或硬件。</p>
+        <div class="grid three" id="revenue-grid"></div>
+        <div class="insight" id="insight-box"></div>
+      </section>
+
+      <section id="watch" class="fade-up">
+        <h2>未来 2-3 年关键观察指标</h2>
+        <div class="grid two">
+          <article class="card">
+            <h3>模型公司（OpenAI / Anthropic）</h3>
+            <p>
+              1) 单位推理成本下降速度；2) 企业续费与扩容率；3) 生态黏性（SDK、工具链、工作流沉淀）；4) 对单一云/渠道依赖度。
+            </p>
+          </article>
+          <article class="card">
+            <h3>算力公司（NVIDIA）</h3>
+            <p>
+              1) CUDA 迁移壁垒是否松动；2) 非 NVIDIA 加速器在主流框架中的可用性；3) 供给约束变化与毛利弹性；4) 推理侧替代速度。
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container foot">
+      页面用途：战略学习与结构化思考（非投资建议）。<br />
+      更新时间：<span id="date-stamp"></span>
+    </footer>
+
+    <script>
+      const modelRows = [
+        { dimension: "C端入口能力", openai: 9, anthropic: 5 },
+        { dimension: "企业销售匹配度", openai: 8, anthropic: 9 },
+        { dimension: "渠道杠杆效率", openai: 8, anthropic: 8 },
+        { dimension: "安全治理心智", openai: 7, anthropic: 9 },
+        { dimension: "平台生态外溢", openai: 9, anthropic: 7 }
+      ];
+
+      const moatData = [
+        { title: "CUDA 生态锁定", score: 10, detail: "开发者工具链、库与人才积累形成高迁移成本。" },
+        { title: "软硬件系统协同", score: 9, detail: "GPU + NVLink/网络 + 编译器/推理栈联动，形成整体性能优势。" },
+        { title: "规模化交付能力", score: 9, detail: "先进封装、供应链协同与大规模交付经验构成现实壁垒。" },
+        { title: "客户存量绑定", score: 8, detail: "头部模型厂商已有大量代码、运维与采购体系沉淀。" }
+      ];
+
+      const revenueData = [
+        {
+          company: "OpenAI",
+          note: "双轮驱动：订阅 + API",
+          items: [
+            { name: "订阅（ChatGPT/Team/Enterprise）", pct: 45, color: "#53f2c6" },
+            { name: "API 用量计费", pct: 35, color: "#38cbb4" },
+            { name: "企业定制与合同", pct: 20, color: "#2b8e85" }
+          ]
+        },
+        {
+          company: "Anthropic",
+          note: "企业/API 优先",
+          items: [
+            { name: "API 与云渠道分发", pct: 60, color: "#8eb8ff" },
+            { name: "企业合同（治理/安全）", pct: 30, color: "#5e88df" },
+            { name: "增值服务", pct: 10, color: "#405bb1" }
+          ]
+        },
+        {
+          company: "NVIDIA",
+          note: "核心在数据中心",
+          items: [
+            { name: "数据中心（AI 芯片/系统）", pct: 80, color: "#9eea4d" },
+            { name: "软件与企业支持", pct: 8, color: "#7dbf3a" },
+            { name: "其他业务（游戏/汽车等）", pct: 12, color: "#5f992a" }
+          ]
+        }
+      ];
+
+      const viewInsights = {
+        strategy:
+          "战略视角：OpenAI 在“入口+平台”上更强，Anthropic 在“企业可信交付”上更专注。NVIDIA 的决定性优势依旧来自软件生态与系统能力，不是单点芯片性能。",
+        invest:
+          "投资视角：优先盯住三件事——单位经济（推理成本与毛利）、客户黏性（续费/扩容）、替代速度（生态迁移与供给变化）。"
+      };
+
+      function renderModelMatrix() {
+        const matrix = document.getElementById("model-matrix");
+        matrix.innerHTML = "";
+
+        const header = document.createElement("div");
+        header.className = "matrix-row header";
+        header.innerHTML = "<div>维度</div><div>OpenAI</div><div>Anthropic</div>";
+        matrix.appendChild(header);
+
+        modelRows.forEach((row) => {
+          const el = document.createElement("div");
+          el.className = "matrix-row";
+          el.innerHTML = `
+            <div class="dim-name">${row.dimension}</div>
+            <div class="bar-wrap">
+              <div class="bar openai" data-score="${row.openai}"><span></span></div>
+              <div class="score">${row.openai}/10</div>
+            </div>
+            <div class="bar-wrap">
+              <div class="bar anthropic" data-score="${row.anthropic}"><span></span></div>
+              <div class="score">${row.anthropic}/10</div>
+            </div>
+          `;
+          matrix.appendChild(el);
+        });
+      }
+
+      function renderMoats() {
+        const moatList = document.getElementById("moat-list");
+        moatList.innerHTML = "";
+
+        moatData.forEach((m) => {
+          const item = document.createElement("div");
+          item.className = "moat-item";
+          item.innerHTML = `
+            <div class="moat-top">
+              <div class="moat-title">${m.title}</div>
+              <div class="moat-meter">
+                <div class="bar" data-score="${m.score}"><span></span></div>
+              </div>
+            </div>
+            <div class="moat-detail">${m.detail}</div>
+          `;
+          moatList.appendChild(item);
+        });
+      }
+
+      function renderRevenue() {
+        const grid = document.getElementById("revenue-grid");
+        grid.innerHTML = "";
+
+        revenueData.forEach((company) => {
+          const block = document.createElement("article");
+          block.className = "rev-block";
+
+          const stackSegments = company.items
+            .map((i) => `<div style="background:${i.color};" data-pct="${i.pct}"></div>`)
+            .join("");
+
+          const legends = company.items
+            .map(
+              (i) => `
+              <div class="legend-item">
+                <div class="legend-label"><span class="dot" style="background:${i.color};"></span>${i.name}</div>
+                <div>${i.pct}%</div>
+              </div>`
+            )
+            .join("");
+
+          block.innerHTML = `
+            <div class="rev-title">
+              <h4>${company.company}</h4>
+              <span>${company.note}</span>
+            </div>
+            <div class="stack">${stackSegments}</div>
+            <div class="legend">${legends}</div>
+          `;
+          grid.appendChild(block);
+        });
+      }
+
+      function animateBars(root = document) {
+        root.querySelectorAll(".bar[data-score]").forEach((bar) => {
+          const score = Number(bar.getAttribute("data-score"));
+          const span = bar.querySelector("span");
+          requestAnimationFrame(() => {
+            span.style.width = `${score * 10}%`;
+          });
+        });
+
+        root.querySelectorAll(".stack > div[data-pct]").forEach((seg) => {
+          const pct = Number(seg.getAttribute("data-pct"));
+          requestAnimationFrame(() => {
+            seg.style.width = `${pct}%`;
+          });
+        });
+      }
+
+      function initViewToggle() {
+        const buttons = document.querySelectorAll(".toggle-btn");
+        const box = document.getElementById("insight-box");
+        box.textContent = viewInsights.strategy;
+
+        buttons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            buttons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const view = btn.getAttribute("data-view");
+            box.textContent = viewInsights[view];
+          });
+        });
+      }
+
+      function initFadeIn() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+              }
+            });
+          },
+          { threshold: 0.14 }
+        );
+
+        document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+      }
+
+      function init() {
+        renderModelMatrix();
+        renderMoats();
+        renderRevenue();
+        animateBars(document);
+        initViewToggle();
+        initFadeIn();
+
+        const now = new Date();
+        document.getElementById("date-stamp").textContent = now.toLocaleString("zh-CN", { hour12: false });
+      }
+
+      init();
+    </script>
+  </body>
+</html>
