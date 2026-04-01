@@ -1,0 +1,115 @@
+site_name: Basionmy 知识库
+site_description: OJ 周赛题目 & GESP 备考资料
+docs_dir: .
+site_dir: /var/www/basionmy-site
+exclude_docs: |
+  mkdocs.yml
+  index.html
+  .git/
+  .DS_Store
+
+theme:
+  name: material
+  language: zh
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换至深色模式
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换至浅色模式
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+  font:
+    text: Noto Sans SC
+    code: Roboto Mono
+
+plugins:
+  - search:
+      lang: zh
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - 首页: README.md
+  - 任务看板: team-board.md
+  - OJ 周赛:
+    - 周赛 01:
+      - 题目索引: oj-contests-01/README.md
+      - A - 简单计算: oj-contests-01/周赛01-A-简单计算.md
+      - A - 测试数据: oj-contests-01/周赛01-A-测试数据与答案.md
+      - B - 字符统计: oj-contests-01/周赛01-B-字符统计.md
+      - B - 测试数据: oj-contests-01/周赛01-B-测试数据与答案.md
+      - C - 最少操作: oj-contests-01/周赛01-C-最少操作.md
+      - C - 测试数据: oj-contests-01/周赛01-C-测试数据与答案.md
+      - D - 成绩排序: oj-contests-01/周赛01-D-成绩排序.md
+      - D - 测试数据: oj-contests-01/周赛01-D-测试数据与答案.md
+    - 周赛 02:
+      - 题目索引: oj-contests-02/README.md
+      - A - 三数最大值: oj-contests-02/周赛02-A-三数最大值.md
+      - A - 测试数据: oj-contests-02/周赛02-A-测试数据与答案.md
+      - B - 最值及下标: oj-contests-02/周赛02-B-最值及下标.md
+      - B - 测试数据: oj-contests-02/周赛02-B-测试数据与答案.md
+      - C - 区间选点: oj-contests-02/周赛02-C-区间选点.md
+      - C - 测试数据: oj-contests-02/周赛02-C-测试数据与答案.md
+      - D - 图书排序: oj-contests-02/周赛02-D-图书排序.md
+      - D - 测试数据: oj-contests-02/周赛02-D-测试数据与答案.md
+    - 周赛 03:
+      - 题目索引: oj-contests-03/README.md
+      - A - 小强的闹钟: oj-contests-03/周赛03-A-小强的闹钟.md
+      - A - 测试数据: oj-contests-03/周赛03-A-测试数据与答案.md
+      - B - 仓库盘点: oj-contests-03/周赛03-B-仓库盘点.md
+      - B - 测试数据: oj-contests-03/周赛03-B-测试数据与答案.md
+      - C - 聊天过滤器: oj-contests-03/周赛03-C-聊天过滤器.md
+      - C - 测试数据: oj-contests-03/周赛03-C-测试数据与答案.md
+      - D - 选课系统: oj-contests-03/周赛03-D-选课系统.md
+      - D - 测试数据: oj-contests-03/周赛03-D-测试数据与答案.md
+    - 周赛 04:
+      - 题目索引: oj-contests-04/README.md
+      - A - 小强的成绩单: oj-contests-04/周赛04-A-小强的成绩单.md
+      - A - 测试数据: oj-contests-04/周赛04-A-测试数据与答案.md
+      - B - 累计积分: oj-contests-04/周赛04-B-累计积分.md
+      - B - 测试数据: oj-contests-04/周赛04-B-测试数据与答案.md
+      - C - 回文口令: oj-contests-04/周赛04-C-回文口令.md
+      - C - 测试数据: oj-contests-04/周赛04-C-测试数据与答案.md
+      - D - 运动会成绩: oj-contests-04/周赛04-D-运动会成绩.md
+      - D - 测试数据: oj-contests-04/周赛04-D-测试数据与答案.md
+    - 周赛 05:
+      - 题目索引: oj-contests-05/README.md
+      - A - 糖果分配: oj-contests-05/周赛05-A-糖果分配.md
+      - A - 测试数据: oj-contests-05/周赛05-A-测试数据与答案.md
+      - B - 数组翻转: oj-contests-05/周赛05-B-数组翻转.md
+      - B - 测试数据: oj-contests-05/周赛05-B-测试数据与答案.md
+      - C - 最长最短单词: oj-contests-05/周赛05-C-最长最短单词.md
+      - C - 测试数据: oj-contests-05/周赛05-C-测试数据与答案.md
+      - D - 学生档案排序: oj-contests-05/周赛05-D-学生档案排序.md
+      - D - 测试数据: oj-contests-05/周赛05-D-测试数据与答案.md
+  - GESP:
+    - gesp/README.md
+    - 五级 2025-12 解析: gesp/五级-2025年12月-答案解析.md

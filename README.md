@@ -4,6 +4,7 @@
 
 ## 快速入口
 
+- [任务看板（Planka）](http://116.62.136.244/board/)（团队任务与看板，需登录）
 - [INBOX（灵感收集箱）](./INBOX.md)
 - [TODAY（今日焦点）](./TODAY.md)
 - [IDEAS（想法库）](./IDEAS.md)
