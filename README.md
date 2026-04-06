@@ -17,6 +17,7 @@
 - [周赛 03](./oj-contests-03/README.md)（闹钟、仓库盘点、聊天过滤器、选课系统）
 - [周赛 04](./oj-contests-04/README.md)（成绩单、累计积分、回文口令、运动会成绩）
 - [周赛 05](./oj-contests-05/README.md)（糖果分配、数组翻转、最长最短单词、学生档案排序）
+- [周赛 06](./oj-contests-06/README.md)（礼品兑换、人气展位、叫号系统、评分矩阵）
 
 ## GESP 做题
 
