@@ -24,3 +24,12 @@
 - [D - 山峰统计](./周赛17-D-山峰统计.md)
 - [E - 大数相减](./周赛17-E-大数相减.md)
 - [F - 地下密道](./周赛17-F-地下密道.md)
+
+## 学习价值海报
+
+- [周赛17-A-密码校验-学习价值海报.png](./assets/learning-posters/周赛17-A-密码校验-学习价值海报.png)
+- [周赛17-B-宝藏众数-学习价值海报.png](./assets/learning-posters/周赛17-B-宝藏众数-学习价值海报.png)
+- [周赛17-C-卷宗整理-学习价值海报.png](./assets/learning-posters/周赛17-C-卷宗整理-学习价值海报.png)
+- [周赛17-D-山峰统计-学习价值海报.png](./assets/learning-posters/周赛17-D-山峰统计-学习价值海报.png)
+- [周赛17-E-大数相减-学习价值海报.png](./assets/learning-posters/周赛17-E-大数相减-学习价值海报.png)
+- [周赛17-F-地下密道-学习价值海报.png](./assets/learning-posters/周赛17-F-地下密道-学习价值海报.png)
